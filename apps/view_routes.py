@@ -35,25 +35,55 @@ for start, end, duration in routes:
 cost_per_hour = 15
 
 class ViewRoutes:
-    def __init__(self) -> None:
-        pass
+    def __init__(self, graph) -> None:
+        self.graph = graph
 
     def display_routes(self):
         headers = ["Routes (2-ways)", "Duration (hours)"]
-        table = [[f"{start} -- {end}", duration] for start, end, duration in routes]
+        table = [[f"{start} -- {end}", duration] for start in self.graph for end, duration in self.graph[start].items()]
         print(f"Cost = ${cost_per_hour}/hour")
         print(tabulate(table, headers, tablefmt="grid"))
+
+    def dijkstra(self, start, end):
+        from heapq import heappop, heappush
+        import math
+
+        pq = [(0, start)]
+        dist = {node: math.inf for node in self.graph}
+        dist[start] = 0
+        prev = {node: None for node in self.graph}
+
+        while pq:
+            current_dist, current_node = heappop(pq)
+
+            if current_dist > dist[current_node]:
+                continue
+
+            if current_node == end:
+                path = []
+                while current_node is not None:
+                    path.append(current_node)
+                    current_node = prev[current_node]
+                path.reverse()
+                return dist[end], path
+
+            for neighbor, weight in self.graph[current_node].items():
+                distance = current_dist + weight
+                if distance < dist[neighbor]:
+                    dist[neighbor] = distance
+                    prev[neighbor] = current_node
+                    heappush(pq, (distance, neighbor))
+
+        return math.inf, []
 
     def find_route(self):
         while True:
             print("\nTake your route")
-            from_station = input("From: ").strip()
-            to_station = input("To: ").strip()
+            from_station = input("From: ").strip().capitalize()
+            to_station = input("To: ").strip().capitalize()
 
-            if from_station not in graph or to_station not in graph:
-                print("Invalid station entered.")
-            else:
-                duration, path = dijkstra(graph, from_station, to_station)
+            if from_station not in self.graph or to_station not in self.graph:
+                duration, path = self.dijkstra(from_station, to_station)
                 if duration == float("inf"):
                     print(f"No route from {from_station} to {to_station}.")
                 else:
@@ -62,12 +92,14 @@ class ViewRoutes:
                     print(f"{' -> '.join(path)}")
                     print(f"Duration: {duration} hours")
                     print(f"Cost: ${total_cost}")
+            else:
+                print("Invalid station entered.")
 
             another_route = input("\nSee another route?\nYes/No = ").strip().lower()
             if another_route != 'yes':
                 break
 
 if __name__ == "__main__":
-    vr = ViewRoutes()
+    vr = ViewRoutes(graph)
     vr.display_routes()
     vr.find_route()

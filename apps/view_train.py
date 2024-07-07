@@ -70,4 +70,9 @@ class ViewTrain:
         print(tabulate(table, headers, tablefmt="grid"))
 
 if __name__ == "__main__":
-    ViewTrain().start()
+    Vr = ViewTrain()
+    Vr.start()
+    Vr.get_class()
+    Vr.get_items()
+    Vr.recommend_items()
+    Vr.display_classes()
