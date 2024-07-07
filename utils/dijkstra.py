@@ -2,7 +2,10 @@ import heapq
 
 
 class Dijkstra:
-    def __init__(self, graph: dict, start: str, end: str):
+    def __init__(self, graph: dict):
+        self.graph = graph
+    
+    def find_sort_path(self, start: str, destination: str) -> tuple:
         queue = [(0, start)]
         shortest_paths = {start: (None, 0)}
         visited = set()
@@ -15,10 +18,10 @@ class Dijkstra:
 
             visited.add(node)
 
-            if node is end:
+            if node is destination:
                 break
 
-            for neighbor, weight in graph[node].item():
+            for neighbor, weight in self.graph[node].items():
                 if neighbor in visited:
                     continue
 
@@ -28,18 +31,10 @@ class Dijkstra:
                     heapq.heappush(queue, (new_cost, neighbor))
 
         path = []
-        node = end
+        node = destination
         while node is not None:
             path.append(node)
             next_node = shortest_paths[node][0]
             node = next_node
 
-        path[::-1]
-
-        self.path = path
-        self.shortest_paths = shortest_paths
-
-        return self
-
-    def print_sort_path(self):
-        print(" -> ".join(self.shortest_paths))
+        return path[::-1], shortest_paths[destination][1]

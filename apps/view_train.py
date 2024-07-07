@@ -62,17 +62,10 @@ class ViewTrain:
         print(f"With total weight: {total_weight} kg")
         print("You can use our recommendation or choose another class to carry more")
 
-    def display_classes(self):
+    def show_ui(self):
         headers = ["Class", "Max Capacity (kg)", "Cost ($)"]
         table = []
         for class_name, details in self.classes.items():
             table.append([class_name.capitalize(), details['capacity'], details['cost']])
-        print(tabulate(table, headers, tablefmt="grid"))
-
-if __name__ == "__main__":
-    Vr = ViewTrain()
-    Vr.start()
-    Vr.get_class()
-    Vr.get_items()
-    Vr.recommend_items()
-    Vr.display_classes()
+        print(tabulate(table, headers, tablefmt="heavy_outline"))
+        input()

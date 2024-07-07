@@ -2,113 +2,96 @@ import random
 
 class TrainTicketSystem:
     def __init__(self) -> None:
-        # Daftar kelas dengan kapasitas dan biaya tiket
         self.classes = {
             'economy': {'capacity': 25, 'cost': 20},
             'business': {'capacity': 30, 'cost': 30},
             'exclusive': {'capacity': 35, 'cost': 40}
         }
-        
-        # Daftar rute perjalanan kereta beserta deskripsi
         self.routes = {
             'minstowe': 'Cowstone -> Freeham -> Donningpool -> Old Mere',
             'old mere': 'Minstowe -> Cowstone -> Freeham -> Donningpool -> Old Mere'
         }
-        
-        # Durasi perjalanan untuk setiap rute dalam jam
-        self.trip_durations = {
-            'minstowe': 10,  # Durasi perjalanan dari Minstowe ke Old Mere adalah 10 jam
-            'old mere': 10   # Durasi perjalanan dari Old Mere ke Minstowe adalah 10 jam
-        }
-
-        # Tarif per jam dalam dollar
-        self.rate_per_hour = 15
+        self.trip_durations = {'minstowe': 15, 'old mere': 15}  # Durations in hours
 
     def start(self):
         while True:
-            print("Pastikan Anda telah memeriksa rute sebelum memesan tiket.")
+            print("Make sure you already check your route before you order ticket")
             destination = self.get_route()
 
-            print(f"Ini adalah rute dari {destination['from']} ke {destination['to']}:")
+            print(f"Here is the route from {destination['from']} to {destination['to']}:")
             print(self.routes[destination['to'].lower()])
-            print(f"Durasi perjalanan: {self.trip_durations[destination['to'].lower()]} jam")
+            print(f"Duration: {self.trip_durations[destination['to'].lower()]} hours")
 
             chosen_class = self.get_class()
 
-            print("Silakan masukkan data Anda:")
-            name = input("Nama: ")
-            departure_date = input("Tanggal keberangkatan (DD/MM/YYYY): ")
-            departure_time = input("Waktu keberangkatan (HH:MM): ")
+            print("Please insert your data:")
+            name = input("Name: ")
+            departure_date = input("Departure date (DD/MM/YYYY): ")
+            departure_time = input("Departure time (HH:MM): ")
             train_number = self.generate_train_number()
             platform_number = random.randint(1, 10)
             seat_number = random.randint(1, 50)
 
-            print("Apakah Anda yakin dengan semua data di atas? (Ya/Tidak): ")
+            print("Are you sure about all the data above? (Yes/No): ")
             confirmation = input().lower()
-            if confirmation == 'ya':
+            if confirmation == 'yes':
                 self.print_ticket(destination, name, departure_date, departure_time, chosen_class, train_number, platform_number, seat_number)
 
-            print("Ingin memesan tiket lagi? (Ya/Tidak): ")
+            print("Order another ticket? (Yes/No): ")
             another_ticket_choice = input().lower()
-            if another_ticket_choice == 'tidak':
+            if another_ticket_choice == 'no':
                 break
 
     def get_route(self):
-        from_location = input("Ke mana tujuan Anda?\nDari: ").strip().title()
-        to_location = input("Ke: ").strip().title()
+        from_location = input("Where do you want to go?\nFrom: ").strip().title()
+        to_location = input("To: ").strip().title()
         return {'from': from_location, 'to': to_location}
 
     def get_class(self):
-        print("Pastikan Anda telah memeriksa barang bawaan Anda sebelum memilih kelas.")
+        print("Make sure you already check your belongings before choose the class")
         while True:
-            chosen_class = input("Pilih kelas (Economy, Business, Exclusive): ").lower()
+            chosen_class = input("Choose class (Economy, Business, Exclusive): ").lower()
             if chosen_class in self.classes:
                 return chosen_class
-            print("Kelas tidak valid. Silakan pilih lagi.")
+            print("Invalid class. Please choose again.")
 
     def generate_train_number(self):
         number = random.randint(100, 999)
-        letter = chr(random.randint(65, 90))  # Generate random uppercase letter
+        letter = chr(random.randint(65, 90))  # A-Z
         return f"{number}-{letter}"
 
     def print_ticket(self, destination, name, departure_date, departure_time, chosen_class, train_number, platform_number, seat_number):
+        total_cost = self.classes[chosen_class]['cost']
         duration_hours = self.trip_durations[destination['to'].lower()]
-        total_cost = self.calculate_cost(chosen_class, duration_hours)
-
         arrival_date, arrival_time = self.calculate_arrival(departure_date, departure_time, duration_hours)
 
         print("\n+----------------------------+")
-        print("|        TIKET KERETA         |")
+        print("|        TRAIN TICKET        |")
         print("+----------------------------+")
-        print(f"| ASAL         | {destination['from'].upper():<18} |")
+        print(f"| ORIGIN       | {destination['from'].upper():<18} |")
         print("|--------------+------------------|")
-        print(f"| TANGGAL      | {departure_date:<18} |")
-        print(f"| WAKTU        | {departure_time:<18} |")
-        print(f"| NOMOR KERETA | {train_number:<18} |")
-        print(f"| KELAS        | {chosen_class.upper():<18} |")
-        print(f"| PERON        | {platform_number:<18} |")
-        print(f"| NOMOR KURSI  | {seat_number:<18} |")
+        print(f"| DATE         | {departure_date:<18} |")
+        print(f"| TIME         | {departure_time:<18} |")
+        print(f"| TRAIN#       | {train_number:<18} |")
+        print(f"| CLASS        | {chosen_class.upper():<18} |")
+        print(f"| PLATFORM     | {platform_number:<18} |")
+        print(f"| SEAT         | {seat_number:<18} |")
         print("|--------------+------------------|")
-        print(f"| TUJUAN       | {destination['to'].upper():<18} |")
+        print(f"| DESTINATION  | {destination['to'].upper():<18} |")
         print("|--------------+------------------|")
-        print(f"| TANGGAL      | {arrival_date:<18} |")
-        print(f"| WAKTU        | {arrival_time:<18} |")
+        print(f"| DATE         | {arrival_date:<18} |")
+        print(f"| TIME         | {arrival_time:<18} |")
         print("|--------------+------------------|")
-        print(f"| NAMA PENUMPANG | {name.upper():<14} |")
+        print(f"| PASSENGER NAME | {name.upper():<14} |")
         print("+----------------------------+")
-        print(f"Total biaya: ${total_cost}")
+        print(f"Total cost: ${total_cost}")
         print()
 
-    def calculate_cost(self, chosen_class, duration_hours):
-        base_cost = self.classes[chosen_class]['cost']
-        total_cost = base_cost + (self.rate_per_hour * duration_hours)
-        return total_cost
-
     def calculate_arrival(self, departure_date, departure_time, duration_hours):
-        # Menghitung waktu kedatangan berdasarkan waktu keberangkatan dan durasi perjalanan
+        # For simplicity, this function will assume no date changes and handle time only.
         departure_time_hours, departure_time_minutes = map(int, departure_time.split(':'))
         arrival_time_hours = (departure_time_hours + duration_hours) % 24
-        arrival_date = departure_date  # Dalam implementasi nyata, ini akan disesuaikan untuk perjalanan multi-hari.
+        arrival_date = departure_date  # In a real implementation, this would be adjusted for multi-day trips.
         arrival_time = f"{arrival_time_hours:02d}:{departure_time_minutes:02d}"
         return arrival_date, arrival_time
 
