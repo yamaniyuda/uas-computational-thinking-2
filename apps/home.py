@@ -1,28 +1,21 @@
-from .apps import Apps
-import os
+from apps.apps import Apps
 
 
 class Home:
-    def __init__(self) -> Apps:
-        self.show_ui()
-        self.input_menu_choose()
 
     def show_ui(self):
-        os.system('cls')
-        print(f"""
-            Welcome to Apa Aja Express
-            ==========================
-            1.  Order Ticket
-            2.  View Routes
-            3.  View Train
-            4.  Exit
-            ==========================
-            Choose(1-4) :   
-            """)
+        print("Welcome to Apa Aja Express")
+        print("==========================")
+        print("1.  Order Ticket")
+        print("2.  View Routes")
+        print("3.  View Train")
+        print("4.  Exit")
+        print("==========================")
+        return self.input_menu_choose()
 
-    def input_menu_choose(self) -> Apps | None:
+    def input_menu_choose(self) -> Apps:
         try:
-            menu = int(input())
+            menu = int(input("Chosee (1-4) : "))
             match menu:
                 case 1: menu = Apps.ORDER_TICKET
                 case 2: menu = Apps.VIEW_ROUTES
