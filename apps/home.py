@@ -13,6 +13,9 @@ class Home:
         print("==========================")
         return self.input_menu_choose()
 
+
+
+
     def input_menu_choose(self) -> Apps:
         try:
             menu = int(input("Chosee (1-4) : "))

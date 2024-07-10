@@ -20,6 +20,7 @@ class ViewTrain:
 
 
 
+
     def __recommend_items(self):
         print("We can help you choose to bring, do you want try ?")
         
@@ -56,6 +57,7 @@ class ViewTrain:
 
 
 
+
     def __get_item_bring(self, items: list, classes: dict):
         class_choose = self.classes.get(classes)
         total_capacity = class_choose.get('capacity')
@@ -76,6 +78,7 @@ class ViewTrain:
 
         return True
         
+
 
 
     def __get_item_bring_devided(self, items: list, classes: dict):
@@ -101,6 +104,7 @@ class ViewTrain:
         
         return True
     
+
 
 
     def __print_item_bring(self, items: list, total_weight: int):

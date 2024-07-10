@@ -5,6 +5,9 @@ class Dijkstra:
     def __init__(self, graph: dict):
         self.graph = graph
     
+
+
+    
     def find_sort_path(self, start: str, destination: str) -> tuple:
         queue = [(0, start)]
         shortest_paths = {start: (None, 0)}

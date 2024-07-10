@@ -1,6 +1,5 @@
 from data.train import TRAINT_CLASESS, TRAIN_ROUTES_GRAPH
 from utils.dijkstra import Dijkstra
-from dashtable import data2rst
 from datetime import datetime, timedelta
 from apps.apps import Apps
 import random
@@ -26,8 +25,8 @@ class OrderTicket:
 
             self.date_arrives, self.time_arrives = new_datetime_str.split()
             self.traint_number = random.randint(100, 999)
-            self.platform = f"{random.randint(1, 10) : 02d}"
-            self.seat = f"{random.randint(1, 50) : 02d}"
+            self.platform = f"{random.randint(1, 10):02d}"
+            self.seat = f"{random.randint(1, 50):02d}"
             
             self.__print_ticket()
             print()
