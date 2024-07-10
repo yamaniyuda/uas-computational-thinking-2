@@ -7,7 +7,7 @@ def main() -> None:
         os.system('cls' if os.name == 'nt' else 'clear')
         try:
             match current_domain:
-                case apps.Apps.ORDER_TICKET: current_domain = order_ticket.OrderTicket()
+                case apps.Apps.ORDER_TICKET: current_domain = order_ticket.OrderTicket().show_ui()
                 case apps.Apps.VIEW_ROUTES: current_domain = view_routes.ViewRoutes().show_ui()
                 case apps.Apps.VIEW_TRAIN: current_domain = view_train.ViewTrain().show_ui()
                 case apps.Apps.EXIST: break

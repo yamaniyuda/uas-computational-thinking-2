@@ -1,5 +1,5 @@
 TRAIN_ROUTES = [
-    ('Minstone', 'Cowstone', 3),
+    ('Minstowe', 'Cowstone', 3),
     ('Oldcastle', 'New North', 5),
     ('Oldcastle', 'Freeham', 2),
     ('Cowstone', 'Freeham', 5),
@@ -23,8 +23,8 @@ TRAIN_ROUTES = [
 
 
 TRAIN_ROUTES_GRAPH = {
-    'Minstone': {'Cowstone': 3},
-    'Cowstone': {'Minstone': 3, 'Freeham': 2, 'New North': 4, 'Bingborough': 6, 'Donningpool': 7, 'Highbrook': 5},
+    'Minstowe': {'Cowstone': 3},
+    'Cowstone': {'Minstowe': 3, 'Freeham': 2, 'New North': 4, 'Bingborough': 6, 'Donningpool': 7, 'Highbrook': 5},
     'Oldcastle': {'New North': 5, 'Freeham': 2},
     'New North': {'Oldcastle': 5, 'Cowstone': 4, 'Bingborough': 3, 'Donningpool': 6, 'Wington': 4, 'Highbrook': 2},
     'Freeham': {'Oldcastle': 2, 'Cowstone': 2, 'Donningpool': 3, 'Wington': 5},

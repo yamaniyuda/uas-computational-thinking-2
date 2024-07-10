@@ -16,7 +16,7 @@ class ViewTrain:
             table.append([class_name.capitalize(), details['capacity'], details['cost']])
         print(tabulate(table, headers, tablefmt="heavy_outline"))
 
-        self.__recommend_items()
+        return self.__recommend_items()
 
 
 
