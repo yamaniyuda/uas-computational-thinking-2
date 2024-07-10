@@ -37,3 +37,10 @@ TRAIN_ROUTES_GRAPH = {
 
 
 TRAINT_COST_HOUR: int = 15
+
+
+TRAINT_CLASESS = {
+    'economy': {'capacity': 25, 'cost': 20},
+    'business': {'capacity': 30, 'cost': 30},
+    'exclusive': {'capacity': 35, 'cost': 40}
+}

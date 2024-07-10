@@ -13,8 +13,7 @@ def main() -> None:
                 case apps.Apps.EXIST: break
                 case _: current_domain = home.Home().show_ui()
         except Exception as e:
-            input('-')
-            print(e)
+            input(e)
 
 
 if __name__ == "__main__":

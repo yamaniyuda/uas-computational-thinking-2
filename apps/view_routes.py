@@ -14,6 +14,8 @@ class ViewRoutes:
         print(tabulate(table, headers, tablefmt="heavy_outline"))
         
         return self.find_route()
+    
+    
 
     def find_route(self):
         while True:
