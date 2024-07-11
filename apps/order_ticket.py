@@ -2,6 +2,7 @@ from data.train import TRAINT_CLASESS, TRAIN_ROUTES_GRAPH
 from utils.dijkstra import Dijkstra
 from datetime import datetime, timedelta
 from apps.apps import Apps
+import string
 import random
 
 class OrderTicket:
@@ -24,7 +25,7 @@ class OrderTicket:
             new_datetime_str = new_datetime.strftime('%d/%m/%Y %H:%M')
 
             self.date_arrives, self.time_arrives = new_datetime_str.split()
-            self.traint_number = random.randint(100, 999)
+            self.traint_number = f"{random.randint(100, 999)}-{random.choice(string.ascii_uppercase)}"
             self.platform = f"{random.randint(1, 10):02d}"
             self.seat = f"{random.randint(1, 50):02d}"
             
@@ -90,7 +91,7 @@ class OrderTicket:
             already_data = input('Are you sure about all the data above ? (Yes/No)'.ljust(50) + ': ').strip().lower()
             
             if already_data == 'no': continue
-            return name, departure_date, departure_time
+            return name.title(), departure_date, departure_time
         
 
 
