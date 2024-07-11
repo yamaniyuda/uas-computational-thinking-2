@@ -84,16 +84,19 @@ class OrderTicket:
 
     def __get_personal_data(self):
         while True:
-            print('\nPlease insert your data:')
-            name = input('Name '.ljust(50) + ': ')
-            departure_date = input('Departure date (DD/MM/YYYY) '.ljust(50) + ': ')
-            departure_time = input('Departure time (HH:MM) '.ljust(50) + ': ')
-            already_data = input('Are you sure about all the data above ? (Yes/No)'.ljust(50) + ': ').strip().lower()
-            
-            if already_data == 'no': continue
-            return name.title(), departure_date, departure_time
-        
+            try:
+                print('\nPlease insert your data:')
+                name = input('Name '.ljust(50) + ': ')
+                departure_date = input('Departure date (DD/MM/YYYY) '.ljust(50) + ': ')
+                departure_time = input('Departure time (HH:MM) '.ljust(50) + ': ')
+                already_data = input('Are you sure about all the data above ? (Yes/No)'.ljust(50) + ': ').strip().lower()
+                
+                datetime.strptime(f'{departure_date} {departure_time}', '%d/%m/%Y %H:%M')
 
+                if already_data == 'no': continue
+                return name.title(), departure_date, departure_time
+            except:
+                input('Incorrect time format')
 
     
     def __print_ticket(self):
